@@ -1,30 +1,25 @@
 package control;
 
 import modelo.Coordenada;
-import modelo.Densidad;
-import modelo.Dificultad;
-import modelo.TableroAleatorio;
+import modelo.GestionDatos;
 
 public class Controlador {
-	private TableroAleatorio TableroAleatorio;
-	private Densidad densidad;
-	private Dificultad dificultad;
+	private GestionDatos gestion;
 
 	public Controlador() {
-		super();
-		TableroAleatorio = new TableroAleatorio(this.dificultad.getLongitud(),
-				this.densidad.CalculaMinasDensidad(dificultad, densidad));
+		gestion = new GestionDatos();
+
 	}
 
-	public boolean marcarCasilla(Coordenada coordenada) {
-		return TableroAleatorio.marcarCasilla(coordenada);
+	public void creaTablero(int tamano, int numMinas) {
+		this.gestion.crearTablero(tamano, numMinas);
 	}
-
-	public void desvelarCasilla(Coordenada coordenada) {
-		TableroAleatorio.desvelarCasilla(coordenada);
+	
+	public boolean ganarPartida() {
+		return gestion.ganarPartida();
 	}
-
-	public TableroAleatorio iniciarJuego(Dificultad dificultad, Densidad densidad) {
-		return new TableroAleatorio(dificultad.getLongitud(), densidad.CalculaMinasDensidad(dificultad, densidad));
+	
+	public boolean perderPartida() {
+		return gestion.perderPartida();
 	}
 }

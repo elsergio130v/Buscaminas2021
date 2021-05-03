@@ -6,37 +6,38 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import modelo.Coordenada;
 import modelo.Densidad;
 import modelo.Dificultad;
-import modelo.TableroAleatorio;
-import vista.Botonera;
 import vista.UI;
 
 public class ParaUI extends UI {
 
 	private Controlador controlador;
 	private ActionListener actionListener;
-	private TableroAleatorio tablero = new TableroAleatorio(Dificultad.medio.getLongitud(), 7);
 
 	public ParaUI() {
 		super();
 		controlador = new Controlador();
-		this.preparameLaBotonera();
 		getBtnIniciar().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Densidad densidad = (Densidad) getCmbDensidad().getSelectedItem();
 				Dificultad dificultad = (Dificultad) getCmbDificultad().getSelectedItem();
-				controlador.iniciarJuego(dificultad, densidad);
-//				desveladorController = new DesveladorController(tablero);
-//				marcadorController = new MarcadorController(tablero);
-//				Botonera botonera = new Botonera(lado, desveladorController, marcadorController);
+				controlador.creaTablero(dificultad.getLongitud(), densidad.getPorcentaje());
+				addBotonera(dificultad.getLongitud());
 				botonera.setVisible(true);
+				//esto da fallo seria para cambiar el ui de forma
+//				if (controlador.ganarPartida()) {
+//					addGanarPartida();
+//				}
+//				if (controlador.perderPartida()) {
+//					addPerderPartida();
+//				}
 			}
 		});
+		
 	}
-
+	
 	private void preparameLaBotonera() {
 		this.actionListenerBotonera();
 		this.addEventosBotonera();
@@ -49,9 +50,9 @@ public class ParaUI extends UI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JButton boton = (JButton) e.getSource();
-				Coordenada coordenada2 = botonera.getCoordenada(boton);
-				int minasAlrededor = tablero.getCasilla(coordenada2).getMinasAlrededor();
-				boton.setText(String.valueOf(minasAlrededor));
+//				Coordenada coordenada2 = botonera.getCoordenada(boton);
+//				int minasAlrededor = tablero.getCasilla(coordenada2).getMinasAlrededor();
+//				boton.setText(String.valueOf(minasAlrededor));
 
 			}
 		};
